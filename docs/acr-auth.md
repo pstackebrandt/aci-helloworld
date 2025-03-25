@@ -16,6 +16,7 @@
     - [Docker Login](#docker-login)
     - [Kubernetes Secrets](#kubernetes-secrets)
     - [Azure Container Instances](#azure-container-instances)
+  - [Application Deployment](#application-deployment)
   - [Security Considerations](#security-considerations)
   - [Troubleshooting](#troubleshooting)
     - [Common Issues](#common-issues)
@@ -119,9 +120,44 @@ az container create \
   --ports 80
 ```
 
+## Application Deployment
+
+This project includes a simple Node.js Express application that can be deployed to Azure Container Instances. The application is containerized using Node.js 20 and includes:
+
+- Express.js web server
+- Morgan logging middleware
+- Simple HTML interface
+
+To deploy the application after setting up authentication:
+
+1. Build the container:
+
+   ```bash
+   docker build -t <your-registry>.azurecr.io/aci-helloworld:latest .
+   ```
+
+2. Push to your registry:
+
+   ```bash
+   docker push <your-registry>.azurecr.io/aci-helloworld:latest
+   ```
+
+3. Deploy to ACI:
+
+   ```bash
+   az container create \
+     --resource-group myResourceGroup \
+     --name aci-helloworld \
+     --image <your-registry>.azurecr.io/aci-helloworld:latest \
+     --registry-username <service-principal-id> \
+     --registry-password <service-principal-password> \
+     --dns-name-label aci-helloworld \
+     --ports 80
+   ```
+
 ## Security Considerations
 
-- Rotate service principal credentials periodically
+- Rotate service principal credentials periodically (recommended every 90 days)
 - Use the principle of least privilege (use `acrpull` when possible)
 - Consider using managed identities for Azure resources instead of service principals when applicable
 - Never hardcode credentials in source code or configuration files
@@ -135,6 +171,8 @@ az container create \
 2. **"Insufficient privileges"**: Ensure the service principal has the appropriate role assigned.
 
 3. **Script errors**: Make sure you're logged in to Azure CLI with `az login` before running the script.
+
+4. **Node.js version compatibility**: The application now uses Node.js 20. If you encounter issues, check your Node.js version compatibility.
 
 ### Helpful Commands
 
@@ -155,3 +193,4 @@ az role assignment list --assignee <service-principal-id> --scope <acr-registry-
 - [Azure Container Registry documentation](https://docs.microsoft.com/en-us/azure/container-registry/)
 - [Service principals with Azure CLI](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli)
 - [ACR authentication options](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-authentication)
+- [Azure Container Instances documentation](https://docs.microsoft.com/en-us/azure/container-instances/)
