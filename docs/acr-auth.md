@@ -1,5 +1,27 @@
 # Azure Container Registry Authentication Guide
 
+## Table of Contents
+
+- [Azure Container Registry Authentication Guide](#azure-container-registry-authentication-guide)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Purpose](#purpose)
+  - [Prerequisites](#prerequisites)
+  - [Script Usage](#script-usage)
+    - [Step 1: Set Environment Variables](#step-1-set-environment-variables)
+    - [Step 2: Run the Script](#step-2-run-the-script)
+    - [Step 3: Store the Credentials](#step-3-store-the-credentials)
+  - [Access Control Options](#access-control-options)
+  - [Using the Service Principal](#using-the-service-principal)
+    - [Docker Login](#docker-login)
+    - [Kubernetes Secrets](#kubernetes-secrets)
+    - [Azure Container Instances](#azure-container-instances)
+  - [Security Considerations](#security-considerations)
+  - [Troubleshooting](#troubleshooting)
+    - [Common Issues](#common-issues)
+    - [Helpful Commands](#helpful-commands)
+  - [Additional Resources](#additional-resources)
+
 ## Overview
 
 This document provides detailed information about the `create-acr-service-principal.sh` script and how to use it to set up authentication for Azure Container Registry (ACR).
