@@ -98,11 +98,13 @@ Use the credentials to log in to Docker:
 ### Common Issues
 
 1. **Script execution errors**: Make sure scripts have execute permissions in WSL:
+
    ```bash
    chmod +x scripts/*.sh
    ```
 
 2. **"Authentication failed"**: Verify your Azure CLI is logged in:
+
    ```bash
    az login
    ```
