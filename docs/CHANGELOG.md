@@ -5,9 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2024-03-26
+
+### Added in 1.0.1
+
+- Version management script for consistent versioning
+- Dry run mode for version updates
+- Automatic git tag creation
+- Version validation
+- Comprehensive documentation for version management
+- Changelog management
+
+### Changed in 1.0.1
+
+- Updated from original Microsoft tutorial
+- Improved script reliability
+- Enhanced error messages
+- Standardized version format across files
+
+### Fixed in 1.0.1
+
+- Line ending issues in bash scripts
+- Error handling in PowerShell scripts
+- Configuration validation issues
+- Version inconsistency across files
+
 ## [1.0.0] - 2024-03-26
 
-### Added
+### Added in 1.0.0
 
 - Initial release
 - Fixed line ending issues in bash scripts
@@ -19,13 +44,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added testing and validation
 - Added user experience improvements
 
-### Changed
+### Changed in 1.0.0
 
 - Updated from original Microsoft tutorial
 - Improved script reliability
 - Enhanced error messages
 
-### Fixed
+### Fixed in 1.0.0
 
 - Line ending issues in bash scripts
 - Error handling in PowerShell scripts
