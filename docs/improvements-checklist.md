@@ -17,8 +17,14 @@
   ```gitignore
   # Azure Container Registry credentials
   config/secrets/
-  *.env
+  config/acr-env.sh
   ```
+
+  Note: Specific environment files are handled:
+  - `config/acr-env-template.sh` (committed)
+  - `config/acr-env.sh` (ignored)
+  - `config/secrets/acr-credentials_*.env` (ignored)
+  - `.env` (ignored)
 
 - [ ] Add script to normalize line endings in existing files
 - [ ] Document line ending requirements in README

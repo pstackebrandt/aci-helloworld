@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+<!-- Add new changes here before release -->
+
+## [1.0.2] - 2024-03-26
+
+### Added in 1.0.2
+
+- Comprehensive configuration validation with line ending checks
+- Variable value validation for environment files
+- Improved error handling and user feedback
+- Better handling of template vs environment-specific files
+- Progress indicators for validation steps
+
+### Changed in 1.0.2
+
+- Enhanced configuration validation script structure
+- Improved error messages and validation feedback
+- Better handling of file permissions
+- More detailed validation output
+
+### Fixed in 1.0.2
+
+- Line ending validation for shell scripts
+- Variable value pattern matching
+- File permission checks for Windows environment
+- Template file validation
+
 ## [1.0.1] - 2024-03-26
 
 ### Added in 1.0.1

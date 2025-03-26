@@ -1,6 +1,6 @@
 FROM node:20-alpine
 
-LABEL version="1.0.0" \
+LABEL version="1.0.2" \
       description="Azure Container Instances Hello World Application" \
       maintainer="pstackebrandt"
 
