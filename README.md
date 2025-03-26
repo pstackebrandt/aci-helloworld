@@ -1,5 +1,7 @@
 # Azure Container Instances Hello World
 
+Version: 1.0.0
+
 This project is an improved version of the [Microsoft tutorial](https://learn.microsoft.com/en-us/azure/container-instances/container-instances-tutorial-prepare-app) for creating a container image for deployment to Azure Container Instances (ACI). The original tutorial needed some fixes to work properly, which have been implemented here.
 
 The source code is available at: [https://github.com/pstackebrandt/aci-helloworld](https://github.com/pstackebrandt/aci-helloworld)

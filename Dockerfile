@@ -1,4 +1,9 @@
 FROM node:20-alpine
+
+LABEL version="1.0.0" \
+      description="Azure Container Instances Hello World Application" \
+      maintainer="pstackebrandt"
+
 RUN mkdir -p /usr/src/app
 COPY ./app/* /usr/src/app/
 WORKDIR /usr/src/app
