@@ -1,14 +1,15 @@
 # Azure Container Instances Hello World
 
-This sample is a simple NodeJS application used to demonstrate [Azure Container Instances](https://azure.microsoft.com/services/container-instances/) with secure Azure Container Registry (ACR) authentication.
+This project is an improved version of the [Microsoft tutorial](https://learn.microsoft.com/en-us/azure/container-instances/container-instances-tutorial-prepare-app) for creating a container image for deployment to Azure Container Instances (ACI). The original tutorial needed some fixes to work properly, which have been implemented here.
 
-The packaged version of the application is [available on Docker Hub](https://hub.docker.com/r/microsoft/aci-helloworld/).
+The source code is available at: [https://github.com/pstackebrandt/aci-helloworld](https://github.com/pstackebrandt/aci-helloworld)
 
 ## Project Components
 
 - **Simple Node.js Web App**: A basic Express application serving a hello world page
 - **ACR Authentication Scripts**: Utilities to create and manage service principals for Azure Container Registry access
 - **Documentation**: Detailed guides on ACR authentication and setup
+- **Improvements**: Various fixes and enhancements over the original tutorial
 
 ## Getting Started
 
@@ -29,8 +30,19 @@ The packaged version of the application is [available on Docker Hub](https://hub
 
 For detailed documentation on ACR authentication, see:
 
-- [ACR Authentication Guide](docs/acr-auth.md)
-- [ACR Authentication Setup](docs/acr-auth-setup.md)
+- [ACR Authentication Guide](docs/acr-authentication-guide.md)
+- [ACR Authentication Setup](docs/acr-authentication-setup.md)
+
+## Improvements Over Original Tutorial
+
+- Fixed line ending issues in bash scripts
+- Improved error handling in PowerShell scripts
+- Added comprehensive documentation
+- Added configuration validation
+- Added logging and monitoring
+- Added security best practices
+- Added testing and validation
+- Added user experience improvements
 
 ## Contributing
 
@@ -45,3 +57,7 @@ provided by the bot. You will only need to do this once across all repos using o
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
 contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
