@@ -2,7 +2,7 @@
 
 ## 1. Line Endings and Git Configuration
 
-- [ ] Add `.gitattributes` file to enforce consistent line endings
+- [x] Add `.gitattributes` file to enforce consistent line endings
 
   ```gitattributes
   # Set default behavior to automatically normalize line endings

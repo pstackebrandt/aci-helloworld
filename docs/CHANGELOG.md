@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added `.gitattributes` file to enforce consistent line endings across different file types
+- Added line ending normalization for shell scripts (LF), PowerShell scripts (CRLF), and other text files
+
 <!-- Add new changes here before release -->
 
 ## [1.0.2] - 2024-03-26
