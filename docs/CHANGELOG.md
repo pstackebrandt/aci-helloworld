@@ -5,10 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+> **Note on ordering:** Within each version section, entries are listed with newest changes at the top of each category for better visibility of recent changes.
+>
+> **Note on documentation linting:** Minor linting and formatting changes in documentation files are not listed in the changelog unless they significantly improve readability or correct factual errors.
+
 ## [Unreleased]
 
 ### Added
 
+- Added comprehensive Git and changelog tools modularization specification
+- Added commit message generation design to tooling specification
 - Added standardized changelog format following Keep a Changelog guidelines
 - Added version comparison links for easy tracking of changes between releases
 - Added Unreleased section to track upcoming changes
@@ -25,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Improved development tooling documentation with detailed implementation plans
 - Improved changelog structure for better readability and consistency
 - Standardized section headings across all version entries
 - Updated formatting to align with Markdown best practices
@@ -46,8 +53,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed configuration validation with better test coverage
 - Fixed line ending issues in Bash credential scripts
 - Fixed potential security issues in credential storage
-- Fixed markdown linting issues (MD024, MD040) in documentation files
-- Fixed duplicate headings in markdown files for better navigation
 
 ## [1.0.3] - 2024-03-26
 

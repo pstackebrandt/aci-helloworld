@@ -1,20 +1,63 @@
-# Changelog Tools Modularization Specification
+# Git and Changelog Tools Modularization Specification
 
-This document outlines the approach for modularizing and optimizing the changelog management and Git staging tools for better reusability across projects.
+This document outlines the approach for modularizing and optimizing the changelog management, Git staging tools, and commit message generation for better reusability across projects.
 
 ## Table of Contents
 
-- [Git Module Specification](#git-module-specification)
-- [Changelog Module Specification](#changelog-module-specification)
-- [Cross-Project Reusability](#cross-project-reusability)
-- [Integration Strategy](#integration-strategy)
-- [Implementation Checklist](#implementation-checklist)
+- [Git and Changelog Tools Modularization Specification](#git-and-changelog-tools-modularization-specification)
+  - [Table of Contents](#table-of-contents)
+  - [Git Module Specification](#git-module-specification)
+    - [Git Module Purpose](#git-module-purpose)
+    - [Git Module Structure](#git-module-structure)
+    - [Git Core Functions](#git-core-functions)
+      - [Get-GitStagedFiles](#get-gitstagedfiles)
+      - [Format-GitStagedOutput](#format-gitstagedoutput)
+      - [Get-GitFileDiff](#get-gitfilediff)
+      - [New-GitCommitMessage](#new-gitcommitmessage)
+    - [Git Additional Functions](#git-additional-functions)
+  - [Changelog Module Specification](#changelog-module-specification)
+    - [Changelog Module Purpose](#changelog-module-purpose)
+    - [Changelog Module Structure](#changelog-module-structure)
+    - [Changelog Core Functions](#changelog-core-functions)
+      - [Get-ChangelogSection](#get-changelogsection)
+      - [Update-ChangelogSection](#update-changelogsection)
+      - [New-ChangelogEntry](#new-changelogentry)
+      - [Test-ChangelogFormat](#test-changelogformat)
+    - [Changelog Additional Functions](#changelog-additional-functions)
+  - [Commit Message Generation](#commit-message-generation)
+    - [Purpose](#purpose)
+    - [Implementation Approaches](#implementation-approaches)
+      - [Git History-Based Approach](#git-history-based-approach)
+      - [IDE Integration](#ide-integration)
+    - [Core Features](#core-features)
+      - [Automatic Change Classification](#automatic-change-classification)
+      - [Message Styles](#message-styles)
+      - [Workflow Integration](#workflow-integration)
+  - [Cross-Project Reusability](#cross-project-reusability)
+    - [Installation and Setup](#installation-and-setup)
+    - [Configuration](#configuration)
+    - [Compatibility](#compatibility)
+  - [Integration Strategy](#integration-strategy)
+    - [Version Management Integration](#version-management-integration)
+    - [CI/CD Integration](#cicd-integration)
+    - [Project-Specific Integration](#project-specific-integration)
+  - [Implementation Checklist](#implementation-checklist)
+    - [Phase 1: Module Framework](#phase-1-module-framework)
+    - [Phase 2: Function Implementation](#phase-2-function-implementation)
+    - [Phase 3: Integration](#phase-3-integration)
+    - [Phase 4: Distribution and Documentation](#phase-4-distribution-and-documentation)
+  - [Usage Examples](#usage-examples)
+    - [Basic Git Usage](#basic-git-usage)
+    - [Integrated Workflow Usage](#integrated-workflow-usage)
+    - [Changelog Integration](#changelog-integration)
+    - [Advanced Usage](#advanced-usage)
+  - [Notes on Implementation](#notes-on-implementation)
 
 ## Git Module Specification
 
 ### Git Module Purpose
 
-Create a dedicated PowerShell module for Git operations, particularly focused on obtaining and processing staged changes for changelog updates.
+Create a dedicated PowerShell module for Git operations, particularly focused on obtaining and processing staged changes for changelog updates and commit message generation.
 
 ### Git Module Structure
 
@@ -26,6 +69,7 @@ scripts/Modules/Git/
   │   ├── Get-GitStagedFiles.ps1
   │   ├── Format-GitStagedOutput.ps1
   │   ├── Get-GitFileDiff.ps1
+  │   ├── New-GitCommitMessage.ps1
   │   └── ...
   ├── Tests/                  # Test files
   │   ├── Git.Tests.ps1
@@ -54,11 +98,19 @@ scripts/Modules/Git/
 - [ ] Options for context lines, format, etc.
 - [ ] Support for unified or side-by-side diff
 
+#### New-GitCommitMessage
+
+- [ ] Generate conventional commit messages from staged changes
+- [ ] Analyze file types and change patterns for automatic categorization
+- [ ] Support different message styles (conventional, simple, detailed)
+- [ ] Integration with IDE tools and clipboard
+
 ### Git Additional Functions
 
 - [ ] Test-GitRepository - Check if current directory is a Git repository
 - [ ] Get-GitFileStatus - Get status of specific files
 - [ ] Get-GitRepositoryInfo - Get basic information about the repository
+- [ ] Analyze-GitChanges - Deeper analysis of changed content for commit messages
 
 ## Changelog Module Specification
 
@@ -120,6 +172,50 @@ scripts/Modules/Changelog/
 - [ ] New-ChangelogRelease - Create a new release from Unreleased section
 - [ ] Export-ChangelogSection - Export sections to different formats
 
+## Commit Message Generation
+
+### Purpose
+
+Provide tools to generate high-quality, consistent commit messages based on Git staged changes, reducing manual effort and improving commit history readability.
+
+### Implementation Approaches
+
+#### Git History-Based Approach
+
+- [ ] Extract information solely from recent and staged Git changes
+- [ ] No dependency on changelog entries or version updates
+- [ ] Analyze diffs to understand context and content of changes
+- [ ] Categorize changes automatically based on file types and patterns
+
+#### IDE Integration
+
+- [ ] Terminal command integration with Cursor
+- [ ] Support for clipboard operations
+- [ ] Optional GUI overlay for commit message preview
+- [ ] Customizable templates and presets
+
+### Core Features
+
+#### Automatic Change Classification
+
+- [ ] Detect version updates vs. regular changes
+- [ ] Identify feature additions, fixes, documentation updates, etc.
+- [ ] Apply appropriate conventional commit prefixes (feat, fix, docs)
+- [ ] Suggest scope based on affected files and directories
+
+#### Message Styles
+
+- [ ] Conventional Commits format
+- [ ] Simple concise format
+- [ ] Detailed format with body and footer
+- [ ] Project-specific custom formats
+
+#### Workflow Integration
+
+- [ ] Standalone operation from terminal
+- [ ] Pre-commit hook integration
+- [ ] Two-phase approach for version updates vs. regular commits
+
 ## Cross-Project Reusability
 
 ### Installation and Setup
@@ -139,6 +235,7 @@ scripts/Modules/Changelog/
 - [ ] Cross-platform support (Windows, macOS, Linux)
 - [ ] PowerShell version compatibility testing
 - [ ] Git version compatibility testing
+- [ ] IDE integration testing (VS Code, Cursor, etc.)
 
 ## Integration Strategy
 
@@ -159,6 +256,7 @@ scripts/Modules/Changelog/
 - [ ] Customization hooks
 - [ ] Project type detection
 - [ ] Language-specific changelog entry generation
+- [ ] Project-specific commit message templates
 
 ## Implementation Checklist
 
@@ -173,7 +271,7 @@ scripts/Modules/Changelog/
 ### Phase 2: Function Implementation
 
 - [ ] Extract and refactor existing functionality
-- [ ] Implement new functions
+- [ ] Implement new functions including commit message generation
 - [ ] Complete test coverage
 - [ ] Document functions with help
 
@@ -183,6 +281,7 @@ scripts/Modules/Changelog/
 - [ ] Update existing scripts to use modules
 - [ ] Create configuration system
 - [ ] Test cross-project compatibility
+- [ ] Implement IDE integration for Cursor
 
 ### Phase 4: Distribution and Documentation
 
@@ -193,7 +292,39 @@ scripts/Modules/Changelog/
 
 ## Usage Examples
 
-### Basic Usage
+### Basic Git Usage
+
+```powershell
+# Import modules
+Import-Module Git
+
+# Generate commit message from staged changes
+$commitMessage = New-GitCommitMessage
+
+# Display suggested commit message
+Write-Output $commitMessage
+
+# Copy to clipboard for use in Cursor
+$commitMessage | Set-Clipboard
+```
+
+### Integrated Workflow Usage
+
+```powershell
+# Stage changes
+git add .
+
+# Generate commit message
+$message = New-GitCommitMessage -Style Conventional
+
+# Review and edit if needed
+$message = $message -replace "feat", "fix"
+
+# Commit with generated message
+git commit -m $message
+```
+
+### Changelog Integration
 
 ```powershell
 # Import modules
@@ -208,6 +339,9 @@ $entries = $stagedFiles | New-ChangelogEntry -Category "Changed"
 
 # Update the changelog
 Update-ChangelogSection -Section "Unreleased" -Category "Changed" -Entries $entries
+
+# Generate commit message that includes changelog update
+$message = New-GitCommitMessage -IncludeChangelogReference
 ```
 
 ### Advanced Usage
@@ -223,7 +357,10 @@ $stagedFiles = Get-GitStagedFiles -Include "*.ps1", "*.md" -ExcludePattern ".*\.
 $entries = $stagedFiles | New-ChangelogEntry -TemplatePath "templates/custom.xml"
 
 # Update with dry run to preview changes
-Update-ChangelogSection -Path $config.ChangelogPath -Section "Unreleased" -Entries $entries -DryRun
+Update-ChangelogSection -Path $config.ChangelogPath -Section "Unreleased" -Category "Changed" -Entries $entries -DryRun
+
+# Generate a detailed commit message
+New-GitCommitMessage -Style Detailed -Scope "changelog" -IncludeBody
 ```
 
 ## Notes on Implementation
@@ -234,3 +371,4 @@ Update-ChangelogSection -Path $config.ChangelogPath -Section "Unreleased" -Entri
 - Use proper error handling and logging
 - Include detailed help content in all functions
 - Use standardized parameter names across functions
+- Prioritize IDE integration for common workflows
