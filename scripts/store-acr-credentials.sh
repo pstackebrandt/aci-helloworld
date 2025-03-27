@@ -1,48 +1,48 @@
 #!/bin/bash
 # =============================================================================
-# Store Azure Container Registry Credentials
+# Store ACR Credentials Script
 # =============================================================================
 # Purpose:
-#   This script securely stores the credentials for an Azure Container Registry
-#   service principal for later use.
-#
-# Usage:
-#   Run this script immediately after create-acr-service-principal.sh:
-#   ./scripts/store-acr-credentials.sh SERVICE_PRINCIPAL_ID SERVICE_PRINCIPAL_PASSWORD
+#   Stores Azure Container Registry credentials securely
 # =============================================================================
 
-if [ $# -ne 2 ]; then
-  echo "Usage: $0 <service_principal_id> <service_principal_password>"
-  exit 1
+# Import common utilities
+source "$(dirname "$0")/Modules/Common/bash-utils.sh"
+
+# Check if credentials are provided
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Error: Service principal ID and password are required" >&2
+    echo "Usage: $0 <service-principal-id> <service-principal-password>" >&2
+    exit 1
 fi
 
-SERVICE_PRINCIPAL_ID=$1
-SERVICE_PRINCIPAL_PASSWORD=$2
-TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
-CREDENTIALS_FILE="config/secrets/acr-credentials_${TIMESTAMP}.env"
+SP_ID="$1"
+SP_PASSWORD="$2"
 
-# Create secrets directory if it doesn't exist
-mkdir -p config/secrets
+# Create timestamp for unique filename
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+CREDENTIALS_DIR="config/secrets"
+CREDENTIALS_FILE="$CREDENTIALS_DIR/acr-credentials_$TIMESTAMP.env"
 
-# Store credentials in the file
+# Create directory if it doesn't exist
+mkdir -p "$CREDENTIALS_DIR"
+
+# Store credentials
 cat > "$CREDENTIALS_FILE" << EOF
 # Azure Container Registry Credentials
 # Generated on: $(date)
-# For registry: $containerRegistry
-# Service principal: $servicePrincipal
+# For registry: ${containerRegistry}
+# Service principal: ${servicePrincipal}
 
-ACR_SERVICE_PRINCIPAL_ID=$SERVICE_PRINCIPAL_ID
-ACR_SERVICE_PRINCIPAL_PASSWORD=$SERVICE_PRINCIPAL_PASSWORD
+ACR_SERVICE_PRINCIPAL_ID=$SP_ID
+ACR_SERVICE_PRINCIPAL_PASSWORD=$SP_PASSWORD
 EOF
 
-# Set strict permissions on the credentials file
+# Set restricted permissions
 chmod 600 "$CREDENTIALS_FILE"
 
-echo "Credentials stored in: $CREDENTIALS_FILE"
-echo "Important: Keep this file secure and don't commit it to version control!"
+# Update .gitignore
+update_gitignore "config/secrets/"
 
-# Create a .gitignore entry if it doesn't exist
-if ! grep -q "config/secrets/" .gitignore 2>/dev/null; then
-  echo "Adding config/secrets/ to .gitignore"
-  echo "config/secrets/" >> .gitignore
-fi 
+echo "Credentials stored in: $CREDENTIALS_FILE" >&2
+echo "Important: Keep this file secure and don't commit it to version control!" >&2 

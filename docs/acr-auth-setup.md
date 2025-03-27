@@ -27,7 +27,7 @@ This guide explains how to use the scripts in this project to set up authenticat
 5. To log in to Docker with the credentials:
 
    ```powershell
-   .\scripts\Run-DockerLogin.ps1
+   .\scripts\Operations\Run-DockerLogin.ps1
    ```
 
 6. You can now build and push your container:
@@ -81,7 +81,7 @@ Use the credentials to log in to Docker:
   - `setup-acr-auth.sh` - Wrapper script for the entire process
   - `docker-login-acr.sh` - Uses the credentials to log in to Docker
   - `Run-AcrSetup.ps1` - PowerShell wrapper for the setup process
-  - `Run-DockerLogin.ps1` - PowerShell wrapper for Docker login
+  - `Operations/Run-DockerLogin.ps1` - PowerShell wrapper for Docker login
 - `app/` - Node.js application (Express)
 - `Dockerfile` - Container definition using Node.js 20
 

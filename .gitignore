@@ -61,3 +61,8 @@ typings/
 config/secrets/
 config/acr-env.sh
 
+# Test output files
+test-results.xml
+*.test-results.xml
+TestResults/
+scripts/Modules/*/Tests/TestData/

@@ -1,6 +1,6 @@
 # Azure Container Instances Hello World
 
-Version: 1.0.2
+Version: 1.0.3
 
 This project is an improved version of the [Microsoft tutorial](https://learn.microsoft.com/en-us/azure/container-instances/container-instances-tutorial-prepare-app) for creating a container image for deployment to Azure Container Instances (ACI). The original tutorial needed some fixes to work properly, which have been implemented here.
 
@@ -12,6 +12,8 @@ The source code is available at: [https://github.com/pstackebrandt/aci-helloworl
 - **ACR Authentication Scripts**: Utilities to create and manage service principals for Azure Container Registry access
 - **Documentation**: Detailed guides on ACR authentication and setup
 - **Improvements**: Various fixes and enhancements over the original tutorial
+- **Changelog Management**: Tools to maintain a standardized changelog following Keep a Changelog format
+- **Version Management**: Scripts for consistent versioning across the project
 
 ## Getting Started
 
@@ -25,7 +27,7 @@ The source code is available at: [https://github.com/pstackebrandt/aci-helloworl
 3. Build and push the container:
 
    ```powershell
-   .\scripts\Run-DockerLogin.ps1
+   .\scripts\Operations\Run-DockerLogin.ps1
    docker build -t yourregistry.azurecr.io/aci-helloworld .
    docker push yourregistry.azurecr.io/aci-helloworld
    ```
@@ -34,6 +36,14 @@ For detailed documentation on ACR authentication, see:
 
 - [ACR Authentication Guide](docs/acr-authentication-guide.md)
 - [ACR Authentication Setup](docs/acr-authentication-setup.md)
+
+## Changelog and Versioning
+
+This project maintains a detailed changelog following the [Keep a Changelog](https://keepachangelog.com) format and adheres to [Semantic Versioning](https://semver.org).
+
+- View the full changelog: [CHANGELOG.md](docs/CHANGELOG.md)
+- Update the changelog: `.\scripts\Update-ChangelogFromStaged.ps1`
+- Update version: `.\scripts\Update-ProjectVersion.ps1`
 
 ## Improvements Over Original Tutorial
 

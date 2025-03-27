@@ -7,12 +7,39 @@
 #
 # Usage:
 #   1. Open PowerShell and navigate to the root directory of the project
-#   2. Run: .\scripts\Run-AcrSetup.ps1
+#   2. Run: .\scripts\Setup\Run-AcrSetup.ps1
 # =============================================================================
+
+# Import required modules
+Import-Module $PSScriptRoot\..\Modules\LineEndings\LineEndings.psm1 -Force
+Import-Module $PSScriptRoot\..\Modules\Azure\ServicePrincipal.psm1 -Force
+Import-Module $PSScriptRoot\..\Modules\System\BashExecution.psm1 -Force
+Import-Module $PSScriptRoot\..\Modules\FileSystem\FileSystem.psm1 -Force
 
 # Define environment variable file paths
 $EnvTemplatePath = "config\acr-env-template.sh"
 $EnvFilePath = "config\acr-env.sh"
+
+# Check line endings in environment files
+$config = Import-PowerShellDataFile (Join-Path $PSScriptRoot "..\Modules\LineEndings\FileTypes.psd1")
+
+# Check template file
+if (Test-Path $EnvTemplatePath) {
+    $isValid = Test-FileLineEndings -FilePath $EnvTemplatePath -ExpectedEnding $config.FileTypes["*.sh"]
+    if (-not $isValid) {
+        Write-Host "Fixing line endings in $EnvTemplatePath..." -ForegroundColor Yellow
+        Set-FileLineEndings -FilePath $EnvTemplatePath -ExpectedEnding $config.FileTypes["*.sh"]
+    }
+}
+
+# Check environment file if it exists
+if (Test-Path $EnvFilePath) {
+    $isValid = Test-FileLineEndings -FilePath $EnvFilePath -ExpectedEnding $config.FileTypes["*.sh"]
+    if (-not $isValid) {
+        Write-Host "Fixing line endings in $EnvFilePath..." -ForegroundColor Yellow
+        Set-FileLineEndings -FilePath $EnvFilePath -ExpectedEnding $config.FileTypes["*.sh"]
+    }
+}
 
 # Check if WSL2 is available
 $useWsl = $false
@@ -117,5 +144,7 @@ if ($useWsl) {
 Invoke-BashScript "scripts/setup-acr-auth.sh"
 
 Write-Host "`nSetup complete!" -ForegroundColor Green
-Write-Host "To login to Docker with these credentials, run:" -ForegroundColor Yellow
-Write-Host ".\scripts\Run-DockerLogin.ps1" -ForegroundColor Yellow 
+Write-Host "`nNext steps:" -ForegroundColor Cyan
+Write-Host "1. Review the generated credentials in $credentialsFile" -ForegroundColor Yellow
+Write-Host "2. Use the Docker login script to authenticate:" -ForegroundColor Yellow
+Write-Host "   .\scripts\Operations\Run-DockerLogin.ps1" -ForegroundColor Yellow 

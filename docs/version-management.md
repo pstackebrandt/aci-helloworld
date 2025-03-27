@@ -8,13 +8,13 @@ To update the version number across the project:
 
 ```powershell
 # Basic usage
-.\scripts\Update-Version.ps1 -NewVersion "1.0.1"
+.\scripts\Update-ProjectVersion.ps1 -NewVersion "1.0.1"
 
 # With changelog message
-.\scripts\Update-Version.ps1 -NewVersion "1.0.1" -ChangelogMessage "- Added new feature X"
+.\scripts\Update-ProjectVersion.ps1 -NewVersion "1.0.1" -ChangelogMessage "- Added new feature X"
 
 # Preview changes without making them (dry run)
-.\scripts\Update-Version.ps1 -NewVersion "1.0.1" -DryRun
+.\scripts\Update-ProjectVersion.ps1 -NewVersion "1.0.1" -DryRun
 ```
 
 ## What Gets Updated

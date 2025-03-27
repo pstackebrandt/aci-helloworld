@@ -5,10 +5,27 @@
 #   This script is a Windows PowerShell wrapper for the bash script that logs 
 #   into an Azure Container Registry with Docker.
 #
+# Prerequisites:
+#   - WSL2 or Git Bash installed
+#   - Docker installed and running
+#   - ACR credentials stored in config/secrets/
+#
 # Usage:
 #   1. Open PowerShell and navigate to the root directory of the project
-#   2. Run: .\scripts\Run-DockerLogin.ps1
+#   2. Run: .\scripts\Operations\Run-DockerLogin.ps1
+#
+# Features:
+#   - Automatically detects and uses WSL2 or Git Bash
+#   - Lists available credential files with timestamps
+#   - Allows selection of specific credential file
+#   - Handles path conversion for WSL compatibility
+#   - Provides clear error messages and status updates
 # =============================================================================
+
+# Import required modules
+Import-Module $PSScriptRoot\..\Modules\LineEndings\LineEndings.psm1 -Force
+Import-Module $PSScriptRoot\..\Modules\FileSystem\GitIgnore.psm1 -Force
+Import-Module $PSScriptRoot\..\Modules\System\BashExecution.psm1 -Force
 
 # Check if WSL2 is available
 $useWsl = $false
@@ -110,13 +127,13 @@ if (Test-Path $credentialsDir) {
     }
     else {
         Write-Host "No credential files found in $credentialsDir." -ForegroundColor Red
-        Write-Host "Please run .\scripts\Run-AcrSetup.ps1 first." -ForegroundColor Yellow
+        Write-Host "Please run .\scripts\Setup\Run-AcrSetup.ps1 first." -ForegroundColor Yellow
         exit 1
     }
 }
 else {
     Write-Host "Credentials directory $credentialsDir not found." -ForegroundColor Red
-    Write-Host "Please run .\scripts\Run-AcrSetup.ps1 first." -ForegroundColor Yellow
+    Write-Host "Please run .\scripts\Setup\Run-AcrSetup.ps1 first." -ForegroundColor Yellow
     exit 1
 }
 
