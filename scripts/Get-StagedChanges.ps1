@@ -50,23 +50,36 @@ function Get-StagedFiles {
     $stagedFiles = git diff --name-status --staged | ForEach-Object {
         $parts = $_ -split "`t"
         $status = $parts[0]
-        $filename = $parts[1]
         
-        $statusText = switch ($status) {
-            "A" { "Added" }
-            "M" { "Modified" }
-            "D" { "Deleted" }
-            "R" { "Renamed" }
-            "C" { "Copied" }
-            "U" { "Updated but unmerged" }
+        # Handle renamed/copied files which have format: R<score>\told\tnew
+        if ($status -match '^R|^C') {
+            $filename = $parts[2]  # Use the new filename for renamed/copied files
+        } else {
+            $filename = $parts[1]
+        }
+        
+        # Skip if we couldn't get a filename
+        if ([string]::IsNullOrEmpty($filename)) {
+            Write-Warning "Skipping entry with status '$status' - could not determine filename from: $_"
+            return
+        }
+        
+        $statusText = switch -Regex ($status) {
+            "^A" { "Added" }
+            "^M" { "Modified" }
+            "^D" { "Deleted" }
+            "^R" { "Renamed" }
+            "^C" { "Copied" }
+            "^U" { "Unmerged" }
             default { $status }
         }
         
         [PSCustomObject]@{
             Status = $statusText
             File = $filename
+            OriginalStatus = $status
         }
-    }
+    } | Where-Object { $null -ne $_ }  # Filter out skipped entries
     
     return $stagedFiles
 }

@@ -31,6 +31,7 @@ This document outlines the approach for modularizing and optimizing the changelo
       - [IDE Integration](#ide-integration)
     - [Core Features](#core-features)
       - [Automatic Change Classification](#automatic-change-classification)
+        - [Change Significance Detection](#change-significance-detection)
       - [Message Styles](#message-styles)
       - [Workflow Integration](#workflow-integration)
   - [Cross-Project Reusability](#cross-project-reusability)
@@ -81,12 +82,40 @@ scripts/Modules/Git/
 
 #### Get-GitStagedFiles
 
+> **Note**: Partially implemented in `Get-StagedChanges.ps1`
+>
+> - ✓ Basic functionality for getting staged files
+> - ✓ Support for multiple output formats (JSON, CSV, Text)
+> - ✓ Handling of renamed files with similarity index
+> - ✓ Basic error handling for malformed Git output
+>
+> Technical Debt:
+>
+> - Current implementation is a standalone script, needs modularization
+> - Error handling could be more robust
+> - Logging needs improvement
+
 - [ ] Extract core functionality from existing `Get-StagedChanges.ps1`
 - [ ] Implement parameters for filtering by file type/path
 - [ ] Support for customizable status mapping
 - [ ] Return structured object with full metadata
+- [ ] Handle special Git status codes (renamed files, copied files, etc.)
+- [ ] Proper parsing of Git status output with similarity index
+- [ ] Robust error handling for malformed Git output
 
 #### Format-GitStagedOutput
+
+> **Note**: Partially implemented in `Update-ChangelogFromStaged.ps1`
+>
+> - ✓ Basic text output formatting
+> - ✓ Object-based output for internal use
+> - ✓ Category-based grouping
+>
+> Technical Debt:
+>
+> - No JSON/CSV output formats
+> - Limited customization options
+> - No colorization support
 
 - [ ] Support multiple output formats (Text, JSON, CSV, Object)
 - [ ] Customizable formatting options
@@ -149,12 +178,38 @@ scripts/Modules/Changelog/
 
 #### Update-ChangelogSection
 
-- [ ] Add entries to specific sections
-- [ ] Preserve existing content
-- [ ] Optional validation
-- [ ] Support for dry run mode
+> **Note**: Partially implemented in `Update-ChangelogFromStaged.ps1`
+>
+> - ✓ Basic section updates (Added, Changed, Fixed)
+> - ✓ Smart entry placement within sections
+> - ✓ Maintains existing entries
+> - ✓ Preserves file formatting
+>
+> Technical Debt:
+>
+> - No support for custom sections
+> - Limited entry sorting options
+> - No entry deduplication
+> - No entry validation
+> - No backup creation before updates
+
+- [ ] Update specific changelog sections with new entries
 
 #### New-ChangelogEntry
+
+> **Note**: Partially implemented in `Update-ChangelogFromStaged.ps1`
+>
+> - ✓ Basic entry generation from file changes
+> - ✓ Category-based entry formatting
+> - ✓ Smart entry grouping for multiple files
+> - ✓ File type specific entry templates
+>
+> Technical Debt:
+>
+> - No template file support
+> - Limited customization options
+> - No commit message integration
+> - Manual mode needs improvement
 
 - [ ] Generate entries from file changes, commit messages, or manual input
 - [ ] Use templates for consistency
@@ -186,6 +241,11 @@ Provide tools to generate high-quality, consistent commit messages based on Git 
 - [ ] No dependency on changelog entries or version updates
 - [ ] Analyze diffs to understand context and content of changes
 - [ ] Categorize changes automatically based on file types and patterns
+- [ ] Direct parsing of Git command output
+  - [ ] Handle status codes with additional information
+  - [ ] Parse similarity indices for renamed files
+  - [ ] Process special characters and whitespace
+- [ ] Robust error handling for unexpected Git output formats
 
 #### IDE Integration
 
@@ -198,10 +258,35 @@ Provide tools to generate high-quality, consistent commit messages based on Git 
 
 #### Automatic Change Classification
 
+> **Note**: Basic implementation exists in `Update-ChangelogFromStaged.ps1`
+>
+> - ✓ Basic file type categorization
+> - ✓ Simple documentation change detection
+> - ✓ Status-based classification (Added/Changed/Fixed)
+>
+> Technical Debt:
+>
+> - No git diff content analysis
+> - Simplistic file type detection
+> - No commit message integration
+
 - [ ] Detect version updates vs. regular changes
 - [ ] Identify feature additions, fixes, documentation updates, etc.
 - [ ] Apply appropriate conventional commit prefixes (feat, fix, docs)
 - [ ] Suggest scope based on affected files and directories
+
+##### Change Significance Detection
+
+- [ ] Detection of file renames vs. content changes
+- [ ] Distinguishing between minor and significant documentation changes
+  - [ ] Parse commit history for context
+  - [ ] Analyze change patterns in documentation files
+  - [ ] Consider file importance and change scope
+- [ ] Handling of special Git statuses and their meaning
+  - [ ] Renamed files with similarity index
+  - [ ] Copied files
+  - [ ] Mode changes
+  - [ ] Unmerged states
 
 #### Message Styles
 

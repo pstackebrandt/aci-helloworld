@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added shell-script-reorganization-spec.md defining the comprehensive plan for reorganizing shell scripts across modules and improving maintainability
 - Added comprehensive Git and changelog tools modularization specification
 - Added commit message generation design to tooling specification
 - Added standardized changelog format following Keep a Changelog guidelines
@@ -31,6 +32,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Enhanced git-changelog-tools-spec.md with improved Git status handling, documentation change detection, and implementation learnings
+- Enhanced Get-StagedChanges.ps1 with improved handling of renamed files and special Git status codes
+- Improved Update-ChangelogFromStaged.ps1 with better documentation change detection and consistent newline handling
+- Updated documentation for README
+- Updated multiple PowerShell scripts (2 files)
 - Improved development tooling documentation with detailed implementation plans
 - Improved changelog structure for better readability and consistency
 - Standardized section headings across all version entries
